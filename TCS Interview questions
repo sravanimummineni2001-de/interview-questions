@@ -1,0 +1,7 @@
+S3 to Snowflake Loading Steps
+difference between dynamic tables and streams
+diffrence between secure views and standard views
+Copy into or snow pipe which is cost effective
+Snow Pipe limitations
+values in a table in ID Column -- 1,9,-1,10,256,NULL what is count(*),count(1),count(-22),count(-1),count(256),count(ID)
+
