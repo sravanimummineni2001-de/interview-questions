@@ -1,0 +1,75 @@
+1.CTE vs TEMP TABLE
+2.PIPELINES(full and Incremental Load)
+3.Loading Techniques
+
+
+INPUT:
+| employee_id | employee_name | department |
+| ----------- | ------------- | ---------- |
+| 1           | Shiva         | IT         |1
+| 1           | Shiva         | IT         |2
+| 3           | Ram           | HR         |1
+
+Delete the duplicates from this table
+
+OUTPUT:
+| employee_id | employee_name | department |
+| ----------- | ------------- | ---------- |
+| 1           | Shiva         | IT         |
+| 3           | Ram           | HR         |
+
+(select * from(
+SELECT EMPLOYEE_ID,EMPLOYEE_NAME,DEPARTMENT,ROW_NUMBER() OVER(PARTITION BY EMPLOYEE_ID,EMPLOYEE_NAME,DEPARTMENT order by EMPLOYEE_ID) s
+FROM EMPLOYEE
+)r  where S=1
+
+| sale_id | sale_date  | product  | region | amount |
+| ------- | ---------- | -------- | ------ | ------ |
+| 1       | 2026-01-05 | Laptop   | East   | 1000   |
+| 2       | 2026-01-15 | Mouse    | East   | 100    |
+| 3       | 2026-01-20 | Laptop   | West   | 1200   |
+| 4       | 2026-02-10 | Laptop   | East   | 1100   |
+| 5       | 2026-02-15 | Mouse    | West   | 150    |
+| 6       | 2026-02-25 | Keyboard | East   | 200    |
+| 7       | 2026-03-05 | Laptop   | West   | 1300   |
+| 8       | 2025-01-05 | Laptop   | East   | 1000   |
+| 9       | 2024-01-15 | Mouse    | East   | 100    |
+| 10      | 2025-01-20 | Laptop   | West   | 1200   |
+| 11      | 2026-02-10 | Laptop   | East   | 1100   |
+| 12      | 2026-02-15 | Mouse    | West   | 150    |
+| 13      | 2026-02-25 | Keyboard | East   | 200    |
+| 14      | 2026-03-05 | Laptop   | West   | 1300   |
+
+
+calculate Monthly Sales with Transaction Count
+
+| Month | Transactions | Sales 
+| ----- | ------------ | ----- 
+| Jan-2026   | 3            | 2300  
+| JAN 2025   | 3            | 1450  
+| Mar   | 1            | 1300
+
+
+SELECT * FROM(
+SELECT CONCATENATE(TRUNC(YEAR,SALES_DATE),TRUN(MONTH,SALE_DATE)),COUNT(TRUN(SALE_DATE)),SUM(AMOUNT)
+FROM SALES
+GROUP BY TRUNC(YEAR,SALES_DATE),TRUN(MONTH,SALE_DATE))
+WHERE SALES>2000
+
+
+SELECT SUM(AMOUNT),REGION
+FROM SALES
+GROUP BY REGION 
+
+
+
+
+
+
+
+
+
+
+
+
+
